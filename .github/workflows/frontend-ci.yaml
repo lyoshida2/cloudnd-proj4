@@ -13,6 +13,9 @@ on:
 jobs:
   prepare-environment:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: /starter/frontend
 
     steps:
     - uses: actions/checkout@v3
@@ -23,7 +26,6 @@ jobs:
         node-version: '18.x'
 
     - name: Install dependencies
-      working-directory: starter/frontend
       run: npm install
 
   lint:
@@ -32,7 +34,6 @@ jobs:
     
     steps:
     - name: Run linter
-      working-directory: starter/frontend
       run: npm run lint
 
   test:
@@ -41,7 +42,6 @@ jobs:
     
     steps:
     - name: Run tests
-      working-directory: starter/frontend
       run: npm run test
   
   # runs only if lint and test jobs pass
@@ -51,16 +51,6 @@ jobs:
     if: ${{ github.event.action }} == 'push'
     
     steps:
-    - name: Build
-      working-directory: starter/frontend
-      run: npm run build
-
-    - name: Archive artifacts
-      uses: actions/upload-artifact@v2
-      with:
-        name: build
-        path: ./starter/frontend/build
-
     - id: ecr-publish
       name: Build image and publish to ECR
       uses: bitovi/github-actions-ecr-publish@v0.1.0
@@ -68,4 +58,3 @@ jobs:
         checkout: false,
         use_sha: true
         aws_ecr_repo_name: frontend
-        working_directory: starter/frontend
