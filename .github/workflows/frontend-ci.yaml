@@ -13,9 +13,6 @@ on:
 jobs:
   prepare-environment:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: starter/frontend
 
     steps:
     - uses: actions/checkout@v3
@@ -36,6 +33,9 @@ jobs:
         working-directory: starter/frontend
     
     steps:
+    - name: List files in the repository
+      run: ls -R
+
     - name: Run linter
       run: npm run lint
 
@@ -47,6 +47,9 @@ jobs:
         working-directory: starter/frontend
     
     steps:
+    - name: List files in the repository
+      run: pwd
+
     - name: Run tests
       run: npm run test
   
