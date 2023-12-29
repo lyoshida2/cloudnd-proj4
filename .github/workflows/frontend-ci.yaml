@@ -23,7 +23,7 @@ jobs:
         node-version: '18.x'
 
     - name: Install dependencies
-      working-directory: ./starter/frontend
+      working-directory: starter/frontend
       run: npm install
 
   lint:
@@ -32,7 +32,7 @@ jobs:
     
     steps:
     - name: Run linter
-      working-directory: ./starter/frontend
+      working-directory: starter/frontend
       run: npm run lint
 
   test:
@@ -41,7 +41,7 @@ jobs:
     
     steps:
     - name: Run tests
-      working-directory: ./starter/frontend
+      working-directory: starter/frontend
       run: npm run test
   
   # runs only if lint and test jobs pass
@@ -52,7 +52,7 @@ jobs:
     
     steps:
     - name: Build
-      working-directory: ./starter/frontend
+      working-directory: starter/frontend
       run: npm run build
 
     - name: Archive artifacts
@@ -68,4 +68,4 @@ jobs:
         checkout: false,
         use_sha: true
         aws_ecr_repo_name: frontend
-        working_directory: ./starter/frontend
+        working_directory: starter/frontend
