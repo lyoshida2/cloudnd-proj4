@@ -66,9 +66,6 @@ jobs:
     if: ${{ github.event.action }} == 'push'
     
     steps:
-    - name: print vars
-      run: echo ${{ env.REGISTRY_REPO }} ${{ env.AWS_REGION }} ${{ env.AWS_ACCESS_KEY_ID }} ${{ env.AWS_SECRET_ACCESS_KEY }}
-
     - id: ecr-publish
       name: Build image and publish to ECR
       uses: bitovi/github-actions-ecr-publish@v0.1.0
