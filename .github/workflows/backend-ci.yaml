@@ -1,0 +1,62 @@
+name: Node.js CI
+
+on:
+  pull_request:
+    branches: 
+      - main
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: starter/backend
+    
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Install dependencies
+      run: pip install -r requirements.txt
+
+    - name: Run linter
+      run: pipenv run lint
+
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: starter/backend
+    
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Install dependencies
+      run: pip install -r requirements.txt
+
+    - name: Run linter
+      run: pipenv run test
+  
+  # runs only if lint and test jobs pass
+  build:
+    needs: [lint, test]
+    runs-on: ubuntu-latest
+    environment: production
+    defaults:
+      run:
+        working-directory: starter/backend
+    if: ${{ github.event.action }} == 'push'
+    
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Install dependencies
+      run: pip install -r requirements.txt
+
+    - name: Build Docker image
+      run: |
+        docker build -t backend .

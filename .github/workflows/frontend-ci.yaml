@@ -20,16 +20,24 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Use Node.js
+    - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
         node-version: '18.x'
 
+    # Ref: https://docs.github.com/en/actions/using-workflows/caching-dependencies-to-speed-up-workflows
+    - name: Cache node modules
+      id: cache-npm
+      uses: actions/cache@v3
+      with:
+        path: starter/frontend/node_modules
+        key: ${{ runner.os }}-npm-${{ hashFiles('starter/frontend/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-npm-
+
     - name: Install dependencies
       run: npm install
-    - name: List files in the repository
-      run: ls -R
-
+    
     - name: Run linter
       run: npm run lint
 
@@ -42,16 +50,23 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Use Node.js
+    - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
         node-version: '18.x'
 
+    - name: Cache node modules
+      id: cache-npm
+      uses: actions/cache@v3
+      with:
+        path: starter/frontend/node_modules
+        key: ${{ runner.os }}-npm-${{ hashFiles('starter/frontend/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-npm-
+
     - name: Install dependencies
       run: npm install
-    - name: List files in the repository
-      run: pwd
-
+    
     - name: Run tests
       run: npm run test
   
@@ -66,13 +81,26 @@ jobs:
     if: ${{ github.event.action }} == 'push'
     
     steps:
-    - id: ecr-publish
-      name: Build image and publish to ECR
-      uses: bitovi/github-actions-ecr-publish@v0.1.0
-      with:
-        checkout: true,
-        use_sha: true
-        aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws_ecr_repo_name: ${{ vars.REGISTRY_REPO }}
-        aws_default_region: ${{ vars.AWS_REGION }}
+
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+
+      - name: Cache node modules
+        id: cache-npm
+        uses: actions/cache@v3
+        with:
+          path: starter/frontend/node_modules
+          key: ${{ runner.os }}-npm-${{ hashFiles('starter/frontend/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Docker image
+        run: |
+          docker build -t frontend .
