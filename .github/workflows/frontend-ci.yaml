@@ -72,3 +72,8 @@ jobs:
         checkout: false,
         use_sha: true
         aws_ecr_repo_name: frontend
+        access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        registry: ${{ env.REGISTRY }}
+        repo: ${{ env.REGISTRY_REPO }}
+        region: ${{ env.AWS_REGION }}
