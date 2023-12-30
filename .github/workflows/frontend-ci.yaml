@@ -59,6 +59,7 @@ jobs:
   build:
     needs: [lint, test]
     runs-on: ubuntu-latest
+    environment: production
     defaults:
       run:
         working-directory: starter/frontend
