@@ -25,6 +25,9 @@ jobs:
       with:
         python-version: 3.9
 
+    - name: Lock dependencies
+      run: sudo pipenv lock
+
     - name: Install dependencies
       run: sudo pipenv install
 
@@ -44,6 +47,9 @@ jobs:
       uses: palewire/install-python-pipenv-pipfile@v3
       with:
         python-version: 3.9
+
+    - name: Lock dependencies
+      run: sudo pipenv lock
 
     - name: Install dependencies
       run: sudo pipenv install
@@ -68,6 +74,9 @@ jobs:
       uses: palewire/install-python-pipenv-pipfile@v3
       with:
         python-version: 3.9
+
+    - name: Lock dependencies
+      run: sudo pipenv lock
 
     - name: Install dependencies
       run: sudo pipenv install
