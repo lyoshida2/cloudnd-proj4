@@ -73,5 +73,5 @@ jobs:
         REPOSITORY: ${{ vars.REGISTRY_REPO }}
         IMAGE_TAG: ${{ github.sha }}
       run: |
-        docker build --build-arg REACT_APP_MOVIE_API_URL=${{ vars.REACT_APP_MOVIE_API_URL }} -t $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG .
+        docker build -t ${REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG --build-arg REACT_APP_MOVIE_API_URL=${{ vars.REACT_APP_MOVIE_API_URL }} .
         docker push $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
