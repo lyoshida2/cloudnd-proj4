@@ -74,5 +74,5 @@ jobs:
         IMAGE_TAG: ${{ github.sha }}
       run: |
         echo $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
-        docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
+        docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG starter/backend/Dockerfile
         docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
