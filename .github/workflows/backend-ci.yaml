@@ -27,7 +27,7 @@ jobs:
       run: sudo pipenv lock
 
     - name: Install dependencies
-      run: sudo pipenv install
+      run: sudo pipenv install --dev
 
     - name: Run linter
       run: pipenv run lint
@@ -48,7 +48,7 @@ jobs:
       run: sudo pipenv lock
 
     - name: Install dependencies
-      run: sudo pipenv install
+      run: sudo pipenv install --dev
 
     - name: Run linter
       run: pipenv run test
@@ -73,7 +73,7 @@ jobs:
       run: sudo pipenv lock
 
     - name: Install dependencies
-      run: sudo pipenv install
+      run: sudo pipenv install --dev
 
     - name: Build Docker image
       run: |
