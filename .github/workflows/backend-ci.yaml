@@ -20,11 +20,9 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Install Python, pipenv and Pipfile packages
-      uses: palewire/install-python-pipenv-pipfile@v3
-      with:
-        python-version: 3.9
-
+    - name: Install Pipenv
+      run: sudo pip install pipenv
+    
     - name: Lock dependencies
       run: sudo pipenv lock
 
@@ -43,10 +41,8 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Install Python, pipenv and Pipfile packages
-      uses: palewire/install-python-pipenv-pipfile@v3
-      with:
-        python-version: 3.9
+    - name: Install Pipenv
+      run: sudo pip install pipenv
 
     - name: Lock dependencies
       run: sudo pipenv lock
@@ -70,10 +66,8 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Install Python, pipenv and Pipfile packages
-      uses: palewire/install-python-pipenv-pipfile@v3
-      with:
-        python-version: 3.9
+    - name: Install Pipenv
+      run: sudo pip install pipenv
 
     - name: Lock dependencies
       run: sudo pipenv lock
