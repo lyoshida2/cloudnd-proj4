@@ -1,11 +1,8 @@
-name: Node.js CI
+name: Frontend CI
 
 on:
   pull_request:
     branches: 
-      - main
-  push:
-    branches:
       - main
   workflow_dispatch:
     
@@ -70,7 +67,6 @@ jobs:
     - name: Run tests
       run: npm run test
   
-  # runs only if lint and test jobs pass
   build:
     needs: [lint, test]
     runs-on: ubuntu-latest
@@ -78,28 +74,9 @@ jobs:
     defaults:
       run:
         working-directory: starter/frontend
-    if: ${{ github.event.action }} == 'push'
     
     steps:
-
       - uses: actions/checkout@v3
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18.x'
-
-      - name: Cache node modules
-        id: cache-npm
-        uses: actions/cache@v3
-        with:
-          path: starter/frontend/node_modules
-          key: ${{ runner.os }}-npm-${{ hashFiles('starter/frontend/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-npm-
-
-      - name: Install dependencies
-        run: npm install
 
       - name: Build Docker image
         run: |
