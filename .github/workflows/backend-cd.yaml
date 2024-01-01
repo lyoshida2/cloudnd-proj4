@@ -83,6 +83,8 @@ jobs:
         IMAGE_TAG: ${{ github.sha }}
       run: |
         pwd
+        cd k8s
+        pwd
         aws eks update-kubeconfig --name cluster
         kustomize edit set image backend=$REGISTRY/$REPOSITORY:$IMAGE_TAG
         kustomize build k8s | kubectl apply -f -
