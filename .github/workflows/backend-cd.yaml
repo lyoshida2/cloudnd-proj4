@@ -84,4 +84,4 @@ jobs:
       run: |
         aws eks update-kubeconfig --name cluster
         kustomize edit set image backend=$REGISTRY/$REPOSITORY:$IMAGE_TAG
-        kustomize build starter/backend | kubectl apply -f -
+        kustomize build . | kubectl apply -f -
