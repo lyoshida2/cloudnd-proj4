@@ -83,6 +83,6 @@ jobs:
         REPOSITORY: backend
         IMAGE_TAG: ${{ github.sha }}
       run: |
-        aws eks update-kubeconfig
+        aws eks update-kubeconfig --name cluster
         kustomize edit set image backend=$REGISTRY/$REPOSITORY:$IMAGE_TAG
         kustomize build | kubectl apply -f -
