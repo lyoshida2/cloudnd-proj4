@@ -33,7 +33,7 @@ jobs:
           ${{ runner.os }}-npm-
 
     - name: Install dependencies
-      run: npm install
+      run: npm install6
     
     - name: Run linter
       run: npm run lint

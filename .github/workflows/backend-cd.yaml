@@ -73,7 +73,6 @@ jobs:
         REPOSITORY: backend
         IMAGE_TAG: ${{ github.sha }}
       run: |
-        echo "$REGISTRY/$REPOSITORY:$IMAGE_TAG"
         docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
         docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
 
@@ -85,4 +84,4 @@ jobs:
       run: |
         aws eks update-kubeconfig --name cluster
         kustomize edit set image backend=$REGISTRY/$REPOSITORY:$IMAGE_TAG
-        kustomize build | kubectl apply -f -
+        kustomize build starter/backend | kubectl apply -f -
